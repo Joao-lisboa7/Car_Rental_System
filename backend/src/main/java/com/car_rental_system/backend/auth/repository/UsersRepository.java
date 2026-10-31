@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository 
 public interface UsersRepository extends JpaRepository<Users, Long> {
-    
-    // Método essencial para o processo de login
     Optional<Users> findByEmail(String email);
     
     // Método auxiliar para validar se o e-mail já existe no registro
