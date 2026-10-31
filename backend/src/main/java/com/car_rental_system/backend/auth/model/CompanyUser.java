@@ -1,19 +1,24 @@
 package com.car_rental_system.backend.auth.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "companies")
-public class Company extends Users {
+public class CompanyUser extends Users {
+
+  @Column(nullable = false, unique = true)
   private String companyName;
+
+  @Column(nullable = false, unique = true)
   private String cnpj;
 
-  public Company() {
+  public CompanyUser() {
     super();
   }
 
-  public Company(String companyName, String cnpj) {
+  public CompanyUser(String companyName, String cnpj) {
     this.companyName = companyName;
     this.cnpj = cnpj;
   }
