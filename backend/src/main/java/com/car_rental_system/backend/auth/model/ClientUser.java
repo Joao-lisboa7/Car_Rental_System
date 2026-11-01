@@ -10,8 +10,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "clients")
 public class ClientUser extends Users {
-  @Column(nullable = false, unique = true)
-  private String name;
+
   
   @Column(nullable = false, unique = true)
   private String cpf;
@@ -29,20 +28,11 @@ public class ClientUser extends Users {
     super();
   }
 
-  public ClientUser(String name, String cpf, String rg, String profession, List<IncomeSource> incomeSources) {
-    this.name = name;
+  public ClientUser(String cpf, String rg, String profession, List<IncomeSource> incomeSources) {
     this.cpf = cpf;
     this.rg = rg;
     this.profession = profession;
     this.incomeSources = incomeSources;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 
   public String getCpf() {

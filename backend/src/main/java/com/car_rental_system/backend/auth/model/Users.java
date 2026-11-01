@@ -21,6 +21,10 @@ public abstract class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String name;
+    
     
     @Column(nullable = false, unique = true)
     private String email;
@@ -35,11 +39,12 @@ public abstract class Users {
     public Users() {
     }
 
-    public Users(Long id, String email, String password, UserRole role) {
+    public Users(Long id, String name, String email, String password, UserRole role) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.name = name;
     }
 
     public Long getId() {
@@ -48,6 +53,14 @@ public abstract class Users {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
