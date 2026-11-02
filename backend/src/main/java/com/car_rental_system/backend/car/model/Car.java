@@ -51,6 +51,15 @@ public class Car {
     this.licensePlate = licensePlate;
     this.owner = owner;
   }
+  
+  public Car(String registration, String brand, String model, Integer fabricationYear, String licensePlate, Users owner) {
+    this.registration = registration;
+    this.brand = brand;
+    this.model = model;
+    this.fabricationYear = fabricationYear;
+    this.licensePlate = licensePlate;
+    this.owner = owner;
+  }
 
 
   public Long getId() {
