@@ -5,41 +5,35 @@ export interface LoginRequest {
   password: string
 }
 
-export interface User {
-  id?: number
+export interface AuthResponse {
+  name: string
+  token: string
+}
+
+interface RegisterBase {
+  name: string
   email: string
   password: string
-  role: UserRole
 }
 
-export interface IncomeSource {
-  employerName: string
-  income: number
-}
-
-export interface ClientUser extends User {
-  role: 'CLIENT'
-  name: string
+export interface RegisterClientRequest extends RegisterBase {
   cpf: string
   rg: string
   profession: string
-  incomeSources?: IncomeSource[]
 }
 
-export interface CompanyUser extends User {
-  role: 'COMPANY'
+export interface RegisterCompanyRequest extends RegisterBase {
   companyName: string
   cnpj: string
 }
 
-export interface BankUser extends User {
-  role: 'Bank'
+export interface RegisterBankRequest extends RegisterBase {
   bankName: string
   cnpj: string
   codeBank: string
 }
 
-export type AuthUser = ClientUser | CompanyUser | BankUser
-
-// Registration requires email, password, role and the non-null fields for the
-// selected role: name/cpf/rg/profession, companyName/cnpj, or bankName/cnpj/codeBank.
+export type RegisterRequest =
+  | { role: 'CLIENT'; payload: RegisterClientRequest }
+  | { role: 'COMPANY'; payload: RegisterCompanyRequest }
+  | { role: 'Bank'; payload: RegisterBankRequest }

@@ -1,0 +1,234 @@
+.landing-page {
+  overflow: clip;
+  background: #08090a;
+  color: #f5f4f2;
+}
+
+.drive-story {
+  position: relative;
+  height: 360vh;
+  height: 360svh;
+}
+
+.drive-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+  background: #08090a;
+}
+
+.drive-video,
+.video-shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.drive-video {
+  z-index: 0;
+  object-fit: cover;
+  object-position: center 57%;
+  filter: saturate(.55) brightness(.77);
+}
+
+.video-shade {
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(7, 8, 9, .88) 0%, rgba(7, 8, 9, .67) 34%, rgba(7, 8, 9, .1) 76%),
+    linear-gradient(0deg, rgba(7, 8, 9, .72), transparent 25%, transparent 72%, rgba(7, 8, 9, .42));
+}
+
+.landing-page .site-header {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 4;
+  width: min(1320px, calc(100% - 112px));
+  height: 100px;
+  border-bottom-color: rgba(255, 255, 255, .18);
+  transform: translateX(-50%);
+}
+
+.landing-page .site-nav a,
+.landing-page .text-link,
+.landing-page .subtle-link {
+  color: rgba(245, 244, 242, .78);
+}
+
+.landing-page .site-nav a:hover,
+.landing-page .text-link:hover,
+.landing-page .subtle-link:hover {
+  color: #fff;
+}
+
+.landing-page .hero-copy {
+  position: absolute;
+  z-index: 2;
+  top: clamp(132px, 22vh, 195px);
+  left: max(56px, calc((100% - 1320px) / 2));
+  width: min(760px, 68%);
+  padding: 0;
+}
+
+.landing-page .hero-copy h1 {
+  margin: 28px 0 19px;
+  font-size: clamp(54px, 6.6vw, 88px);
+  text-shadow: 0 3px 28px rgba(0, 0, 0, .35);
+}
+
+.landing-page .hero-copy h1 em {
+  color: #d0cdca;
+}
+
+.landing-page .hero-description {
+  max-width: 430px;
+  color: rgba(239, 238, 236, .78);
+  font-size: 14px;
+}
+
+.landing-page .hero-actions {
+  flex-wrap: wrap;
+  row-gap: 17px;
+  margin-top: 31px;
+}
+
+.landing-page .hero-proof {
+  margin-top: 42px;
+  color: rgba(239, 238, 236, .66);
+}
+
+.landing-page .button-link {
+  border-color: #efede8;
+  background: #efede8;
+  color: #111213;
+}
+
+.landing-page .button-link:hover {
+  background: transparent;
+  color: #fff;
+}
+
+.scroll-progress {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .18);
+}
+
+.scroll-progress > div {
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: #efede8;
+  will-change: transform;
+}
+
+.landing-page .intro-strip {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .drive-story {
+    height: 320vh;
+    height: 320svh;
+  }
+
+  .landing-page .site-header {
+    width: calc(100% - 56px);
+  }
+
+  .landing-page .hero-copy {
+    left: 28px;
+    width: min(630px, 70%);
+  }
+
+  .drive-video {
+    object-position: 57% center;
+  }
+
+  .video-shade {
+    background:
+      linear-gradient(90deg, rgba(7, 8, 9, .8), rgba(7, 8, 9, .42) 48%, rgba(7, 8, 9, .1)),
+      linear-gradient(0deg, rgba(7, 8, 9, .72), transparent 32%, transparent 72%, rgba(7, 8, 9, .46));
+  }
+}
+
+@media (max-width: 650px) {
+  .drive-story {
+    height: 285vh;
+    height: 285svh;
+  }
+
+  .landing-page .site-header {
+    width: calc(100% - 40px);
+    height: 78px;
+  }
+
+  .landing-page .header-actions {
+    gap: 13px;
+  }
+
+  .landing-page .header-actions .button-link {
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 10px;
+  }
+
+  .drive-video {
+    object-position: 52% center;
+    filter: saturate(.5) brightness(.68);
+  }
+
+  .video-shade {
+    background:
+      linear-gradient(0deg, rgba(7, 8, 9, .94) 0%, rgba(7, 8, 9, .76) 40%, rgba(7, 8, 9, .18) 78%, rgba(7, 8, 9, .48)),
+      linear-gradient(90deg, rgba(7, 8, 9, .25), transparent 80%);
+  }
+
+  .landing-page .hero-copy {
+    right: 20px;
+    top: 132px;
+    left: 20px;
+    width: auto;
+  }
+
+  .landing-page .hero-copy h1 {
+    margin: 20px 0 14px;
+    font-size: clamp(42px, 10.3vw, 58px);
+  }
+
+  .landing-page .hero-description {
+    max-width: 370px;
+    font-size: 12px;
+  }
+
+  .landing-page .hero-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 22px;
+  }
+
+  .landing-page .hero-proof {
+    gap: 9px;
+    margin-top: 26px;
+    font-size: 9px;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress > div {
+    will-change: auto;
+  }
+}

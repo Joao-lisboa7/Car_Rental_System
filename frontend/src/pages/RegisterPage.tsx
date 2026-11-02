@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import FormField from '../components/FormField'
 import PrimaryButton from '../components/PrimaryButton'
 import { authService } from '../services/authService'
-import type { AuthUser, UserRole } from '../types/auth'
+import type { RegisterRequest, UserRole } from '../types/auth'
+import './RegisterPage.css'
 
 function RegisterPage() {
   const [role, setRole] = useState<UserRole>('CLIENT')
@@ -17,38 +18,52 @@ function RegisterPage() {
 
     const formData = new FormData(event.currentTarget)
     const value = (name: string) => String(formData.get(name) ?? '').trim()
-    const base = { email: value('email'), password: value('password') }
-    let payload: AuthUser
+    const email = value('email')
+    const password = value('password')
+    let registration: RegisterRequest
 
     if (role === 'CLIENT') {
-      payload = {
-        ...base,
+      registration = {
         role,
-        name: value('name'),
-        cpf: value('cpf'),
-        rg: value('rg'),
-        profession: value('profession'),
+        payload: {
+          name: value('name'),
+          email,
+          password,
+          cpf: value('cpf'),
+          rg: value('rg'),
+          profession: value('profession'),
+        },
       }
     } else if (role === 'COMPANY') {
-      payload = {
-        ...base,
+      const companyName = value('companyName')
+      registration = {
         role,
-        companyName: value('companyName'),
-        cnpj: value('cnpj'),
+        payload: {
+          name: companyName,
+          email,
+          password,
+          companyName,
+          cnpj: value('cnpj'),
+        },
       }
     } else {
-      payload = {
-        ...base,
+      const bankName = value('bankName')
+      registration = {
         role,
-        bankName: value('bankName'),
-        cnpj: value('cnpj'),
-        codeBank: value('codeBank'),
+        payload: {
+          name: bankName,
+          email,
+          password,
+          bankName,
+          cnpj: value('cnpj'),
+          codeBank: value('codeBank'),
+        },
       }
     }
 
     try {
-      await authService.register(payload)
-      setMessage('Formulário validado em modo de demonstração. Nenhum dado foi enviado ou salvo; a API de cadastro ainda não está disponível.')
+      const response = await authService.register(registration)
+      setMessage(`Conta criada com sucesso. Olá, ${response.name}.`)
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Não foi possível criar sua conta. Tente novamente.')
     } finally {
@@ -75,7 +90,7 @@ function RegisterPage() {
           <h2 id="register-title">Criar conta</h2>
           <p className="auth-subtitle">Conte um pouco sobre você para começar.</p>
           <form className="auth-form" onSubmit={handleSubmit}>
-            <label className="field">
+            <label className="field register-role-field">
               <span>Quero me cadastrar como</span>
               <select
                 value={role}
@@ -93,32 +108,46 @@ function RegisterPage() {
               </select>
             </label>
             {role === 'CLIENT' && (
-              <>
-                <FormField id="client-name" label="Nome completo" name="name" placeholder="Como podemos te chamar?" autoComplete="name" required />
-                <div className="field-row">
-                  <FormField id="client-cpf" label="CPF" name="cpf" placeholder="000.000.000-00" required />
-                  <FormField id="client-rg" label="RG" name="rg" placeholder="Seu RG" required />
+              <section className="register-field-group" aria-labelledby="client-details-title">
+                <h3 id="client-details-title">Seus dados</h3>
+                <div className="register-field-stack">
+                  <FormField id="client-name" label="Nome completo" name="name" placeholder="Como podemos te chamar?" autoComplete="name" required />
+                  <div className="field-row">
+                    <FormField id="client-cpf" label="CPF" name="cpf" placeholder="000.000.000-00" required />
+                    <FormField id="client-rg" label="RG" name="rg" placeholder="Seu RG" required />
+                  </div>
+                  <FormField id="client-profession" label="Profissão" name="profession" placeholder="Sua profissão" required />
                 </div>
-                <FormField id="client-profession" label="Profissão" name="profession" placeholder="Sua profissão" required />
-              </>
+              </section>
             )}
             {role === 'COMPANY' && (
-              <>
-                <FormField id="company-name" label="Nome da empresa" name="companyName" placeholder="Razão social" required />
-                <FormField id="company-cnpj" label="CNPJ" name="cnpj" placeholder="00.000.000/0000-00" required />
-              </>
+              <section className="register-field-group" aria-labelledby="company-details-title">
+                <h3 id="company-details-title">Dados da empresa</h3>
+                <div className="register-field-stack">
+                  <FormField id="company-name" label="Nome da empresa" name="companyName" placeholder="Razão social" required />
+                  <FormField id="company-cnpj" label="CNPJ" name="cnpj" placeholder="00.000.000/0000-00" required />
+                </div>
+              </section>
             )}
             {role === 'Bank' && (
-              <>
-                <FormField id="bank-name" label="Nome do banco" name="bankName" placeholder="Nome da instituição" required />
-                <div className="field-row">
-                  <FormField id="bank-cnpj" label="CNPJ" name="cnpj" placeholder="00.000.000/0000-00" required />
-                  <FormField id="bank-code" label="Código do banco" name="codeBank" placeholder="Ex.: 001" required />
+              <section className="register-field-group" aria-labelledby="bank-details-title">
+                <h3 id="bank-details-title">Dados bancários</h3>
+                <div className="register-field-stack">
+                  <FormField id="bank-name" label="Nome do banco" name="bankName" placeholder="Nome da instituição" required />
+                  <div className="field-row">
+                    <FormField id="bank-cnpj" label="CNPJ" name="cnpj" placeholder="00.000.000/0000-00" required />
+                    <FormField id="bank-code" label="Código do banco" name="codeBank" placeholder="Ex.: 001" required />
+                  </div>
                 </div>
-              </>
+              </section>
             )}
-            <FormField id="register-email" label="E-mail" name="email" type="email" placeholder="voce@email.com" autoComplete="email" required />
-            <FormField id="register-password" label="Senha" name="password" type="password" placeholder="Crie uma senha" autoComplete="new-password" required />
+            <section className="register-field-group register-account-group" aria-labelledby="account-details-title">
+              <h3 id="account-details-title">Acesso à conta</h3>
+              <div className="register-field-stack">
+                <FormField id="register-email" label="E-mail" name="email" type="email" placeholder="voce@email.com" autoComplete="email" required />
+                <FormField id="register-password" label="Senha" name="password" type="password" placeholder="Crie uma senha" autoComplete="new-password" required />
+              </div>
+            </section>
             <PrimaryButton type="submit" disabled={isSubmitting}>
               {isSubmitting ? 'Criando conta...' : 'Criar minha conta'} <span aria-hidden="true">↗</span>
             </PrimaryButton>
