@@ -37,10 +37,7 @@ public class SecurityConfig {
                         // Libera endpoints de login e cadastro para todos
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register/**").permitAll()
-                        
-                        // Exemplo de como restringir uma rota apenas para Bancos e Empresas no futuro:
-                        // .requestMatchers(HttpMethod.PATCH, "/orders/*/evaluate").hasAnyRole("COMPANY", "BANK")
-                        
+                        .requestMatchers("/error").permitAll()
                         // Qualquer outra requisição exigirá um token JWT válido
                         .anyRequest().authenticated()
                 )

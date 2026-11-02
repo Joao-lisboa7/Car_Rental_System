@@ -2,6 +2,9 @@ package com.car_rental_system.backend.auth.model;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class IncomeSource {
   private String employerName;
   private BigDecimal income;

@@ -1,0 +1,25 @@
+$kind: http-request
+name: http://localhost:8080/auth/register/bank
+description: ""
+url: http://localhost:8080/auth/register/bank
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"name\": \"João Pedro\",\r
+
+    \  \"email\": \"contato@banco-exemplo.com.br\",\r
+
+    \  \"bankName\": \"Banco Exemplo S.A.\",\r
+
+    \  \"password\": \"senha_segura_123\",\r
+
+    \  \"cnpj\": \"00.000.000/0001-91\",\r
+
+    \  \"codeBank\": \"033\"\r
+
+    }"
+auth:
+  type: apikey
+order: 1000

@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
 import com.car_rental_system.backend.auth.repository.UsersRepository;
 import com.car_rental_system.backend.auth.model.Users;
 
+@Component 
 public class CustomUserDetailsService implements UserDetailsService{
   private final UsersRepository repository;
 
