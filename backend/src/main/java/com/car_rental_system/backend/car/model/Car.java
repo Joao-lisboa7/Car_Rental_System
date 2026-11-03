@@ -34,6 +34,9 @@ public class Car {
   @Column(nullable = false, unique = true)
   private String licensePlate;
 
+  @Column(nullable = false)
+  private Boolean available = false;
+
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "owner_id", nullable = false)
   private Users owner;
@@ -42,23 +45,35 @@ public class Car {
   
 
   public Car(Long id, String registration, String brand, String model, Integer fabricationYear, String licensePlate,
-    Users owner) {
+    Boolean available, Users owner) {
     this.id = id;
     this.registration = registration;
     this.brand = brand;
     this.model = model;
     this.fabricationYear = fabricationYear;
     this.licensePlate = licensePlate;
+    this.available = available != null ? available : false;
     this.owner = owner;
   }
+
+  public Car(Long id, String registration, String brand, String model, Integer fabricationYear, String licensePlate,
+    Users owner) {
+    this(id, registration, brand, model, fabricationYear, licensePlate, false, owner);
+  }
   
-  public Car(String registration, String brand, String model, Integer fabricationYear, String licensePlate, Users owner) {
+  public Car(String registration, String brand, String model, Integer fabricationYear, String licensePlate,
+    Boolean available, Users owner) {
     this.registration = registration;
     this.brand = brand;
     this.model = model;
     this.fabricationYear = fabricationYear;
     this.licensePlate = licensePlate;
+    this.available = available != null ? available : false;
     this.owner = owner;
+  }
+
+  public Car(String registration, String brand, String model, Integer fabricationYear, String licensePlate, Users owner) {
+    this(registration, brand, model, fabricationYear, licensePlate, false, owner);
   }
 
 
@@ -129,6 +144,14 @@ public class Car {
 
   public void setOwner(Users owner) {
     this.owner = owner;
+  }
+
+  public Boolean getAvailable() {
+    return available;
+  }
+
+  public void setAvailable(Boolean available) {
+    this.available = available != null ? available : false;
   }
   
 }

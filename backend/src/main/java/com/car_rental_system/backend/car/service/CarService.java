@@ -25,12 +25,15 @@ public class CarService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Automóvel com esta matrícula ou placa já registado.");
         }
 
+        Boolean available = dto.available() != null ? dto.available() : false;
+
         Car newCar = new Car(
                 dto.registration(),
                 dto.brand(),
                 dto.model(),
                 dto.fabricationYear(),
                 dto.licensePlate(),
+                available,
                 owner
         );
 
@@ -39,6 +42,20 @@ public class CarService {
 
     public List<CarResponseDTO> listAllCars() {
         return carRepository.findAll()
+                .stream()
+                .map(CarResponseDTO::new)
+                .toList();
+    }
+
+    public List<CarResponseDTO> listMyCars(Users owner) {
+        return carRepository.findByOwner(owner)
+                .stream()
+                .map(CarResponseDTO::new)
+                .toList();
+    }
+
+    public List<CarResponseDTO> listAvailableCars(Users currentUser) {
+        return carRepository.findByAvailableTrueAndOwnerNot(currentUser)
                 .stream()
                 .map(CarResponseDTO::new)
                 .toList();

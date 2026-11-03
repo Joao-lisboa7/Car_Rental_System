@@ -9,9 +9,9 @@ public record CarResponseDTO(
         String model,
         Integer fabricationYear,
         String licensePlate,
+        Boolean available,
         String ownerName
 ) {
-    // Construtor auxiliar para converter a entidade Car num DTO
     public CarResponseDTO(Car car) {
         this(
                 car.getId(),
@@ -20,6 +20,7 @@ public record CarResponseDTO(
                 car.getModel(),
                 car.getFabricationYear(),
                 car.getLicensePlate(),
+                car.getAvailable(),
                 car.getOwner().getName()
         );
     }

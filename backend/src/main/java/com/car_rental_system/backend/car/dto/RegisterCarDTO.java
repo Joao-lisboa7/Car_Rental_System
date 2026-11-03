@@ -7,6 +7,7 @@ public record RegisterCarDTO(
   @NotBlank String registration,
   @NotBlank String brand,
   @NotBlank String model,
-  @NotBlank @NotNull Integer fabricationYear,
-  @NotBlank String licensePlate
+  @NotNull Integer fabricationYear,
+  @NotBlank String licensePlate,
+  Boolean available
 ){}

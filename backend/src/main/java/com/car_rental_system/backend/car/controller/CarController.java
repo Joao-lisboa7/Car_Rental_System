@@ -35,4 +35,18 @@ public class CarController {
         List<CarResponseDTO> cars = carService.listAllCars();
         return ResponseEntity.ok(cars);
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<List<CarResponseDTO>> listMyCars(Authentication authentication) {
+        Users loggedInUser = (Users) authentication.getPrincipal();
+        List<CarResponseDTO> cars = carService.listMyCars(loggedInUser);
+        return ResponseEntity.ok(cars);
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<List<CarResponseDTO>> listAvailableCars(Authentication authentication) {
+        Users loggedInUser = (Users) authentication.getPrincipal();
+        List<CarResponseDTO> cars = carService.listAvailableCars(loggedInUser);
+        return ResponseEntity.ok(cars);
+    }
 }

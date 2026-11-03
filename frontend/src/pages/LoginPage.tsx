@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import FormField from '../components/FormField'
 import PrimaryButton from '../components/PrimaryButton'
 import { authService } from '../services/authService'
@@ -7,6 +7,7 @@ import type { LoginRequest } from '../types/auth'
 import './LoginPage.css'
 
 function LoginPage() {
+  const navigate = useNavigate()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [message, setMessage] = useState('')
 
@@ -22,8 +23,8 @@ function LoginPage() {
     }
 
     try {
-      const response = await authService.login(payload)
-      setMessage(`Login realizado com sucesso. Olá, ${response.name}.`)
+      await authService.login(payload)
+      navigate('/cars', { replace: true })
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Não foi possível entrar. Tente novamente.')
     } finally {
