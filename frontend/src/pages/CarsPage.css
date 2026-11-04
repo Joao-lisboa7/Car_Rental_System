@@ -239,6 +239,26 @@
   white-space: nowrap;
 }
 
+.car-rent-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  color: #f2f0ec;
+  font-size: 10px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.car-rent-link:hover {
+  color: #fff;
+}
+
+.car-rent-link:focus-visible {
+  outline: 2px solid #e8e4da;
+  outline-offset: 4px;
+}
+
 .cars-message {
   display: flex;
   min-height: 126px;
@@ -370,6 +390,10 @@
   }
 
   .cars-nav > a:first-child {
+    display: none;
+  }
+
+  .cars-nav > a:not(.button-link) {
     display: none;
   }
 

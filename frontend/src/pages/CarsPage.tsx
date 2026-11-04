@@ -104,6 +104,11 @@ function CarsSection({
                 <div><span>Placa</span><strong>{car.licensePlate}</strong></div>
                 <div><span>Matrícula</span><strong>{car.registration}</strong></div>
               </div>
+              {kind === 'available' && (
+                <Link className="car-rent-link" to={`/orders/me?carId=${car.id}`}>
+                  Solicitar locação <span aria-hidden="true">↗</span>
+                </Link>
+              )}
             </article>
           ))}
         </div>
@@ -153,6 +158,8 @@ function CarsPage() {
         </Link>
         <nav className="cars-nav" aria-label="Navegação da garagem">
           <Link to="/">Início</Link>
+          <Link to="/orders/me">Meus pedidos</Link>
+          <Link to="/agent/orders">Análise de pedidos</Link>
           <Link className="button-link" to="/cars/register">Registrar veículo <span aria-hidden="true">↗</span></Link>
           <button className="logout-button" type="button" onClick={handleLogout}>Sair</button>
         </nav>

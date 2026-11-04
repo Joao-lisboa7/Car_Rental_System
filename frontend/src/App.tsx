@@ -4,6 +4,8 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import CarsPage from './pages/CarsPage'
 import RegisterCarPage from './pages/RegisterCarPage'
+import ClientOrdersPage from './pages/ClientOrdersPage'
+import AgentOrdersPage from './pages/AgentOrdersPage'
 
 function HomeRoute() {
   return sessionStorage.getItem('authToken')
@@ -37,6 +39,14 @@ function App() {
         <Route
           path="/cars/register"
           element={<AuthenticatedRoute><RegisterCarPage /></AuthenticatedRoute>}
+        />
+        <Route
+          path="/orders/me"
+          element={<AuthenticatedRoute><ClientOrdersPage /></AuthenticatedRoute>}
+        />
+        <Route
+          path="/agent/orders"
+          element={<AuthenticatedRoute><AgentOrdersPage /></AuthenticatedRoute>}
         />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
