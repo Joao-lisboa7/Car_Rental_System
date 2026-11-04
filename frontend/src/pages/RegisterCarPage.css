@@ -20,6 +20,32 @@
   transition: color .18s ease;
 }
 
+.register-car-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.register-car-actions .logout-button {
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  color: #b6b6b7;
+  cursor: pointer;
+  font-size: 11px;
+  transition: color .18s ease;
+}
+
+.register-car-actions .logout-button:hover {
+  color: #fff;
+}
+
+.register-car-actions .logout-button:focus-visible,
+.register-car-back:focus-visible {
+  outline: 2px solid #e8e4da;
+  outline-offset: 3px;
+}
+
 .register-car-back:hover {
   color: #fff;
 }
@@ -248,9 +274,12 @@
     align-items: flex-start;
   }
 
+  .register-car-actions {
+    gap: 12px;
+  }
+
   .register-car-back {
     max-width: 125px;
-    padding-top: 9px;
     text-align: right;
   }
 

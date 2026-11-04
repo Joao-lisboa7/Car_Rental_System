@@ -31,6 +31,25 @@
   color: #fff;
 }
 
+.logout-button {
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  color: #b6b6b7;
+  cursor: pointer;
+  font-size: 12px;
+  transition: color .18s ease;
+}
+
+.logout-button:hover {
+  color: #fff;
+}
+
+.logout-button:focus-visible {
+  outline: 2px solid #e8e4da;
+  outline-offset: 4px;
+}
+
 .cars-content {
   width: min(1320px, calc(100% - 112px));
   margin: 0 auto;
@@ -359,6 +378,10 @@
     gap: 8px;
     padding: 0 11px;
     font-size: 9px;
+  }
+
+  .cars-nav .logout-button {
+    font-size: 10px;
   }
 
   .cars-intro {

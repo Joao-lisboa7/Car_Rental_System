@@ -5,24 +5,40 @@ import RegisterPage from './pages/RegisterPage'
 import CarsPage from './pages/CarsPage'
 import RegisterCarPage from './pages/RegisterCarPage'
 
-function App() {
-  const isAuthenticated = Boolean(sessionStorage.getItem('authToken'))
+function HomeRoute() {
+  return sessionStorage.getItem('authToken')
+    ? <Navigate to="/cars" replace />
+    : <LandingPage />
+}
 
+function LoginRoute() {
+  return sessionStorage.getItem('authToken')
+    ? <Navigate to="/cars" replace />
+    : <LoginPage />
+}
+
+function AuthenticatedRoute({ children }: { children: React.ReactNode }) {
+  return sessionStorage.getItem('authToken')
+    ? children
+    : <Navigate to="/login" replace />
+}
+
+function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={isAuthenticated ? <Navigate to="/cars" replace /> : <LandingPage />} />
-        <Route path="/login" element={isAuthenticated ? <Navigate to="/cars" replace /> : <LoginPage />} />
+        <Route path="/" element={<HomeRoute />} />
+        <Route path="/login" element={<LoginRoute />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route
           path="/cars"
-          element={isAuthenticated ? <CarsPage /> : <Navigate to="/login" replace />}
+          element={<AuthenticatedRoute><CarsPage /></AuthenticatedRoute>}
         />
         <Route
           path="/cars/register"
-          element={isAuthenticated ? <RegisterCarPage /> : <Navigate to="/login" replace />}
+          element={<AuthenticatedRoute><RegisterCarPage /></AuthenticatedRoute>}
         />
-        <Route path="*" element={<Navigate to={isAuthenticated ? '/cars' : '/'} replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   )

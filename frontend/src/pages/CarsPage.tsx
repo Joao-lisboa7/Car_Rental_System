@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { authService } from '../services/authService'
 import { carService } from '../services/carService'
 import type { Car } from '../types/car'
 import './CarsPage.css'
@@ -112,8 +113,14 @@ function CarsSection({
 }
 
 function CarsPage() {
+  const navigate = useNavigate()
   const [myCars, setMyCars] = useState<CarsState>(loadingState)
   const [availableCars, setAvailableCars] = useState<CarsState>(loadingState)
+
+  function handleLogout() {
+    authService.logout()
+    navigate('/login', { replace: true })
+  }
 
   const retryCars = useCallback(() => {
     setMyCars(loadingState)
@@ -147,6 +154,7 @@ function CarsPage() {
         <nav className="cars-nav" aria-label="Navegação da garagem">
           <Link to="/">Início</Link>
           <Link className="button-link" to="/cars/register">Registrar veículo <span aria-hidden="true">↗</span></Link>
+          <button className="logout-button" type="button" onClick={handleLogout}>Sair</button>
         </nav>
       </header>
 

@@ -36,6 +36,10 @@ async function postJson(path: string, payload: LoginRequest | RegisterRequest['p
 }
 
 export const authService = {
+  logout() {
+    sessionStorage.removeItem(AUTH_TOKEN_KEY)
+  },
+
   login(payload: LoginRequest) {
     return postJson('/auth/login', payload)
   },

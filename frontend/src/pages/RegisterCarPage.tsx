@@ -1,7 +1,8 @@
 import { useRef, useState, type FormEvent } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import FormField from '../components/FormField'
 import PrimaryButton from '../components/PrimaryButton'
+import { authService } from '../services/authService'
 import { carService } from '../services/carService'
 import type { Car } from '../types/car'
 import './RegisterCarPage.css'
@@ -17,9 +18,15 @@ type FormFeedback =
   | null
 
 function RegisterCarPage() {
+  const navigate = useNavigate()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [feedback, setFeedback] = useState<FormFeedback>(null)
   const submissionInProgress = useRef(false)
+
+  function handleLogout() {
+    authService.logout()
+    navigate('/login', { replace: true })
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -73,7 +80,10 @@ function RegisterCarPage() {
           <span className="wordmark-mark">V</span>
           <span>VELOCE<small>CAR RENTAL</small></span>
         </Link>
-        <Link className="register-car-back" to="/cars">← Voltar para meus carros</Link>
+        <div className="register-car-actions">
+          <Link className="register-car-back" to="/cars">← Voltar para meus carros</Link>
+          <button className="logout-button" type="button" onClick={handleLogout}>Sair</button>
+        </div>
       </header>
 
       <div className="register-car-content">
